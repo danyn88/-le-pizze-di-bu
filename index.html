@@ -1,0 +1,2608 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
+
+<title>Le Pizze di Bù</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", Arial, sans-serif;
+
+    background: #f7f3ec;
+    color: #292725;
+}
+
+.schermata {
+    max-width: 430px;
+    min-height: 100vh;
+    margin: auto;
+    padding: 22px 18px 110px;
+}
+
+.nascosta {
+    display: none;
+}
+
+
+/* HEADER */
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #b9362f;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+}
+
+.title {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 12px;
+    color: #77716b;
+    margin-top: 3px;
+}
+
+
+/* HOME */
+
+.intro {
+    margin-bottom: 18px;
+}
+
+.intro h1 {
+    font-size: 29px;
+    margin-bottom: 7px;
+}
+
+.intro p {
+    color: #77716b;
+    font-size: 15px;
+}
+
+.nuova {
+    background: #b9362f;
+    color: white;
+
+    border-radius: 24px;
+    padding: 23px;
+
+    min-height: 165px;
+
+    position: relative;
+    overflow: hidden;
+
+    margin-bottom: 17px;
+
+    box-shadow:
+    0 8px 20px rgba(120,45,35,.18);
+}
+
+.nuova h2 {
+    font-size: 23px;
+    margin-bottom: 7px;
+}
+
+.nuova p {
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 215px;
+}
+
+.nuova button {
+    margin-top: 18px;
+
+    background: white;
+    color: #b9362f;
+
+    border: none;
+    border-radius: 30px;
+
+    padding: 11px 20px;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.pizza {
+    position: absolute;
+    right: -8px;
+    bottom: -15px;
+
+    font-size: 105px;
+
+    transform: rotate(-8deg);
+}
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap: 14px;
+}
+
+.card {
+    background: white;
+
+    border-radius: 21px;
+
+    padding: 19px;
+
+    min-height: 125px;
+
+    box-shadow:
+    0 3px 12px rgba(0,0,0,.045);
+}
+
+.card.full {
+    grid-column: span 2;
+}
+
+.card-icon {
+    font-size: 25px;
+    margin-bottom: 13px;
+}
+
+.card h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.card p {
+    font-size: 12px;
+    color: #817a73;
+}
+
+
+/* TITOLI */
+
+.titolo-schermata {
+    display: flex;
+
+    align-items: center;
+
+    margin-bottom: 8px;
+}
+
+.indietro {
+    border: none;
+    background: transparent;
+
+    color: #b9362f;
+
+    font-size: 17px;
+
+    padding:
+    5px 10px 5px 0;
+}
+
+.titolo-schermata h1 {
+    font-size: 26px;
+}
+
+.descrizione {
+    color: #77716b;
+
+    font-size: 14px;
+
+    margin-bottom: 20px;
+}
+
+
+/* SEZIONI */
+
+.sezione {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 18px;
+
+    margin-bottom: 15px;
+
+    box-shadow:
+    0 3px 12px rgba(0,0,0,.04);
+}
+
+.sezione h2 {
+    font-size: 17px;
+
+    margin-bottom: 15px;
+}
+
+.campo {
+    margin-bottom: 15px;
+}
+
+.campo:last-child {
+    margin-bottom: 0;
+}
+
+.campo label {
+    display: block;
+
+    font-size: 13px;
+
+    color: #77716b;
+
+    margin-bottom: 7px;
+}
+
+.input {
+    width: 100%;
+
+    border:
+    1px solid #e1dad2;
+
+    background: #faf9f7;
+
+    border-radius: 13px;
+
+    padding: 13px;
+
+    font-size: 17px;
+
+    outline: none;
+}
+
+.input:focus {
+    border-color: #b9362f;
+}
+
+
+/* BOTTONI */
+
+.sceltatoggle {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.toggle {
+    flex: 1;
+
+    border:
+    1px solid #e1dad2;
+
+    background: #faf8f4;
+
+    border-radius: 13px;
+
+    padding: 13px;
+
+    font-size: 14px;
+
+    min-width: 80px;
+}
+
+.toggle.attivo {
+    background: #fff3f1;
+
+    border:
+    2px solid #b9362f;
+
+    color: #b9362f;
+
+    font-weight: 700;
+}
+
+
+/* PROFILO */
+
+.profilo-forno {
+    background: #fff4ef;
+
+    border:
+    1px solid #efd9d0;
+
+    border-radius: 16px;
+
+    padding: 15px;
+}
+
+.profilo-forno strong {
+    display: block;
+
+    color: #b9362f;
+
+    font-size: 15px;
+
+    margin-bottom: 5px;
+}
+
+.profilo-forno span {
+    font-size: 12px;
+
+    color: #77716b;
+}
+
+
+/* RIEPILOGO */
+
+.riepilogo {
+    background: #292725;
+
+    color: white;
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+}
+
+.riepilogo h2 {
+    font-size: 18px;
+
+    margin-bottom: 12px;
+}
+
+.riga {
+    display: flex;
+
+    justify-content:
+    space-between;
+
+    padding: 7px 0;
+
+    font-size: 14px;
+}
+
+.riga span:last-child {
+    font-weight: 700;
+}
+
+
+/* NOTA */
+
+.nota {
+    background: #f1ece5;
+
+    border-radius: 15px;
+
+    padding: 13px;
+
+    color: #6f6962;
+
+    font-size: 12px;
+
+    line-height: 1.45;
+
+    margin-bottom: 15px;
+}
+
+
+/* PULSANTE */
+
+.pulsante {
+    width: 100%;
+
+    border: none;
+
+    border-radius: 18px;
+
+    padding: 17px;
+
+    background: #b9362f;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    box-shadow:
+    0 7px 18px
+    rgba(120,45,35,.18);
+}
+
+
+/* DIARIO */
+
+.ricetta {
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 18px;
+
+    margin-bottom: 15px;
+
+    box-shadow:
+    0 3px 12px rgba(0,0,0,.05);
+}
+
+.ricetta-header {
+    display: flex;
+
+    justify-content:
+    space-between;
+
+    align-items: flex-start;
+
+    margin-bottom: 12px;
+}
+
+.ricetta h2 {
+    font-size: 19px;
+}
+
+.data {
+    font-size: 11px;
+
+    color: #817a73;
+
+    margin-top: 4px;
+}
+
+.voto {
+    color: #b9362f;
+
+    font-size: 14px;
+}
+
+.info-ricetta {
+    display: grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap: 8px;
+
+    margin-bottom: 14px;
+}
+
+.info {
+    background: #f7f3ec;
+
+    border-radius: 12px;
+
+    padding: 10px;
+}
+
+.info small {
+    display: block;
+
+    color: #817a73;
+
+    font-size: 10px;
+
+    margin-bottom: 3px;
+}
+
+.info strong {
+    font-size: 13px;
+}
+
+.note-diario {
+    font-size: 13px;
+
+    color: #625d58;
+
+    line-height: 1.4;
+
+    border-top:
+    1px solid #eee7df;
+
+    padding-top: 12px;
+}
+
+.bottone-elimina {
+    margin-top: 12px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #9a9188;
+
+    font-size: 12px;
+}
+
+
+/* VUOTO */
+
+.diario-vuoto {
+    text-align: center;
+
+    padding: 55px 20px;
+
+    color: #817a73;
+}
+
+.diario-vuoto .emoji {
+    font-size: 55px;
+
+    margin-bottom: 15px;
+}
+
+.diario-vuoto h2 {
+    color: #292725;
+
+    font-size: 21px;
+
+    margin-bottom: 7px;
+}
+
+
+/* NAV */
+
+.bottom-nav {
+    position: fixed;
+
+    bottom: 0;
+
+    left: 50%;
+
+    transform:
+    translateX(-50%);
+
+    width: 100%;
+
+    max-width: 430px;
+
+    height: 76px;
+
+    background:
+    rgba(255,255,255,.96);
+
+    backdrop-filter:
+    blur(15px);
+
+    border-top:
+    1px solid #eee8df;
+
+    display: flex;
+
+    justify-content:
+    space-around;
+
+    align-items: center;
+}
+
+.nav-item {
+    border: none;
+
+    background: transparent;
+
+    color: #8a837c;
+
+    font-size: 11px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+.nav-item span {
+    font-size: 21px;
+}
+
+.nav-item.active {
+    color: #b9362f;
+
+    font-weight: 700;
+}
+
+button {
+    -webkit-tap-highlight-color:
+    transparent;
+}
+
+textarea {
+    resize: vertical;
+
+    min-height: 90px;
+
+    font-family: inherit;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================================================= -->
+<!-- HOME -->
+<!-- ================================================= -->
+
+<div id="home" class="schermata">
+
+<header class="header">
+
+<div class="logo">🍕</div>
+
+<div>
+
+<div class="title">
+Le Pizze di Bù
+</div>
+
+<div class="subtitle">
+Il tuo impasto, la tua pizza,
+le tue ricette.
+</div>
+
+</div>
+
+</header>
+
+
+<section class="intro">
+
+<h1>
+Cosa prepariamo oggi?
+</h1>
+
+<p>
+Organizza il tuo impasto
+e crea la tua prossima pizza.
+</p>
+
+</section>
+
+
+<section class="nuova">
+
+<h2>
+Nuova Pizza
+</h2>
+
+<p>
+Crea una nuova ricetta
+e calcola automaticamente
+il tuo impasto.
+</p>
+
+<button
+onclick="apriNuovaPizza()">
+
+Inizia →
+
+</button>
+
+<div class="pizza">
+🍕
+</div>
+
+</section>
+
+
+<section class="cards">
+
+<div class="card">
+
+<div class="card-icon">
+🥣
+</div>
+
+<h3>
+Impasto in corso
+</h3>
+
+<p>
+Nessun impasto attivo
+</p>
+
+</div>
+
+
+<div class="card"
+onclick="apriDiario()"
+style="cursor:pointer;">
+
+<div class="card-icon">
+📖
+</div>
+
+<h3>
+Le mie ricette
+</h3>
+
+<p id="numeroRicette">
+0 ricette salvate
+</p>
+
+</div>
+
+
+<div class="card full">
+
+<div class="card-icon">
+📸
+</div>
+
+<h3>
+Diario
+</h3>
+
+<p>
+Salva foto, risultati,
+voti e note delle tue pizze.
+</p>
+
+</div>
+
+</section>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- NUOVA PIZZA -->
+<!-- ================================================= -->
+
+<div id="nuovaPizza"
+class="schermata nascosta">
+
+
+<div class="titolo-schermata">
+
+<button
+class="indietro"
+onclick="tornaHome()">
+
+←
+
+</button>
+
+<h1>
+Nuova Pizza
+</h1>
+
+</div>
+
+
+<p class="descrizione">
+Configura il tuo impasto
+e lascia che Bù faccia i calcoli.
+</p>
+
+
+<section class="sezione">
+
+<h2>
+Che pizza vuoi preparare?
+</h2>
+
+<div class="sceltatoggle">
+
+<button class="toggle attivo">
+🍕 Napoletana
+</button>
+
+<button class="toggle">
+Personalizzata
+</button>
+
+</div>
+
+</section>
+
+
+<section class="sezione">
+
+<h2>
+Dimensione dell'impasto
+</h2>
+
+<div class="campo">
+
+<label>
+Numero di pizze
+</label>
+
+<input
+id="numeroPizze"
+class="input"
+type="number"
+min="1"
+value="4">
+
+</div>
+
+
+<div class="campo">
+
+<label>
+Peso di ogni panetto (g)
+</label>
+
+<input
+id="pesoPanetto"
+class="input"
+type="number"
+min="50"
+value="280">
+
+</div>
+
+</section>
+
+
+<section class="sezione">
+
+<h2>
+Il tuo impasto
+</h2>
+
+<div class="campo">
+
+<label>
+Idratazione (%)
+</label>
+
+<input
+id="idratazione"
+class="input"
+type="number"
+value="70">
+
+</div>
+
+
+<div class="campo">
+
+<label>
+Sale (%)
+</label>
+
+<input
+id="sale"
+class="input"
+type="number"
+value="2.8">
+
+</div>
+
+
+<div class="campo">
+
+<label>
+Lievito (%)
+</label>
+
+<input
+id="lievito"
+class="input"
+type="number"
+value="0.10">
+
+</div>
+
+</section>
+
+
+<button
+class="pulsante"
+onclick="apriFermentazione()">
+
+CONTINUA →
+FERMENTAZIONE
+
+</button>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- FERMENTAZIONE -->
+<!-- ================================================= -->
+
+<div id="fermentazione"
+class="schermata nascosta">
+
+
+<div class="titolo-schermata">
+
+<button
+class="indietro"
+onclick="tornaNuovaPizza()">
+
+←
+
+</button>
+
+<h1>
+Fermentazione
+</h1>
+
+</div>
+
+
+<p class="descrizione">
+
+Organizziamo insieme i tempi
+del tuo impasto.
+
+</p>
+
+
+<section class="sezione">
+
+<h2>
+Temperatura ambiente
+</h2>
+
+<div class="campo">
+
+<label>
+Temperatura (°C)
+</label>
+
+<input
+id="temperatura"
+class="input"
+type="number"
+value="22"
+step="0.5"
+oninput="generaTimeline()">
+
+</div>
+
+</section>
+
+
+<section class="sezione">
+
+<h2>
+Quando inizi?
+</h2>
+
+<div class="campo">
+
+<label>
+Ora di inizio impasto
+</label>
+
+<input
+id="oraInizio"
+class="input"
+type="time"
+oninput="generaTimeline()">
+
+</div>
+
+</section>
+
+
+<section class="sezione">
+
+<h2>
+Durata della fermentazione
+</h2>
+
+<div class="campo">
+
+<label>
+Ore totali
+</label>
+
+<input
+id="oreFermentazione"
+class="input"
+type="number"
+value="24"
+min="1"
+max="72"
+step="0.5"
+oninput="generaTimeline()">
+
+</div>
+
+</section>
+
+
+<section class="sezione">
+
+<h2>
+Utilizzi il frigorifero?
+</h2>
+
+<div class="sceltatoggle">
+
+<button
+id="frigoNo"
+class="toggle"
+onclick="impostaFrigo(false)">
+No
+</button>
+
+<button
+id="frigoSi"
+class="toggle attivo"
+onclick="impostaFrigo(true)">
+❄️ Sì
+</button>
+
+</div>
+
+</section>
+
+
+<section class="sezione">
+
+<h2>
+La tua fermentazione
+</h2>
+
+<div id="timeline"></div>
+
+</section>
+
+
+<section class="riepilogo">
+
+<h2>
+Riepilogo
+</h2>
+
+<div class="riga">
+<span>Temperatura</span>
+<span id="riepTemperatura">
+22 °C
+</span>
+</div>
+
+<div class="riga">
+<span>Durata</span>
+<span id="riepDurata">
+24 ore
+</span>
+</div>
+
+<div class="riga">
+<span>Frigorifero</span>
+<span id="riepFrigo">
+Sì
+</span>
+</div>
+
+</section>
+
+
+<button
+class="pulsante"
+onclick="apriCottura()">
+
+CONTINUA →
+COTTURA
+
+</button>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- COTTURA -->
+<!-- ================================================= -->
+
+<div id="cottura"
+class="schermata nascosta">
+
+
+<div class="titolo-schermata">
+
+<button
+class="indietro"
+onclick="tornaFermentazione()">
+
+←
+
+</button>
+
+<h1>
+Cottura
+</h1>
+
+</div>
+
+
+<p class="descrizione">
+
+Imposta il tuo forno e
+registra come è venuta la pizza.
+
+</p>
+
+
+<section class="sezione">
+
+<h2>
+Nome della pizza
+</h2>
+
+<div class="campo">
+
+<label>
+Come vuoi chiamarla?
+</label>
+
+<input
+id="nomePizza"
+class="input"
+type="text"
+value="Vesuvio 2.0"
+placeholder="Es. Vesuvio 2.0">
+
+</div>
+
+</section>
+
+
+<section class="sezione">
+
+<h2>
+Profilo forno
+</h2>
+
+<div class="profilo-forno">
+
+<strong>
+🔥 Ooni Koda 16
+</strong>
+
+<span>
+Profilo personale
+</span>
+
+</div>
+
+</section>
+
+
+<section class="sezione">
+
+<h2>
+Temperatura
+</h2>
+
+<div class="campo">
+
+<label>
+Temperatura forno (°C)
+</label>
+
+<input
+id="tempForno"
+class="input"
+type="number"
+value="450"
+oninput="aggiornaCottura()">
+
+</div>
+
+
+<div class="campo">
+
+<label>
+Temperatura del biscotto / piano (°C)
+</label>
+
+<input
+id="tempPiano"
+class="input"
+type="number"
+value="430"
+oninput="aggiornaCottura()">
+
+</div>
+
+</section>
+
+
+<section class="sezione">
+
+<h2>
+Gestione della fiamma
+</h2>
+
+<div class="sceltatoggle">
+
+<button
+id="fiammaAlta"
+class="toggle attivo"
+onclick="scegliFiamma('Alta')">
+🔥 Alta
+</button>
+
+<button
+id="fiammaMedia"
+class="toggle"
+onclick="scegliFiamma('Media')">
+🔥 Media
+</button>
+
+<button
+id="fiammaBassa"
+class="toggle"
+onclick="scegliFiamma('Bassa')">
+🔥 Bassa
+</button>
+
+</div>
+
+</section>
+
+
+<section class="sezione">
+
+<h2>
+Tempo di cottura
+</h2>
+
+<div class="campo">
+
+<label>
+Tempo previsto (secondi)
+</label>
+
+<input
+id="tempoCottura"
+class="input"
+type="number"
+value="90"
+min="10"
+max="600"
+oninput="aggiornaCottura()">
+
+</div>
+
+
+<div class="campo">
+
+<label>
+Rotazione della pizza ogni (secondi)
+</label>
+
+<input
+id="rotazione"
+class="input"
+type="number"
+value="20"
+min="5"
+max="120"
+oninput="aggiornaCottura()">
+
+</div>
+
+</section>
+
+
+<section class="riepilogo">
+
+<h2>
+Impostazioni di cottura
+</h2>
+
+<div class="riga">
+
+<span>
+Forno
+</span>
+
+<span>
+Ooni Koda 16
+</span>
+
+</div>
+
+<div class="riga">
+
+<span>
+Temperatura
+</span>
+
+<span id="riepTempForno">
+450 °C
+</span>
+
+</div>
+
+<div class="riga">
+
+<span>
+Piano
+</span>
+
+<span id="riepTempPiano">
+430 °C
+</span>
+
+</div>
+
+<div class="riga">
+
+<span>
+Fiamma
+</span>
+
+<span id="riepFiamma">
+Alta
+</span>
+
+</div>
+
+<div class="riga">
+
+<span>
+Cottura
+</span>
+
+<span id="riepTempoCottura">
+90 sec
+</span>
+
+</div>
+
+<div class="riga">
+
+<span>
+Rotazione
+</span>
+
+<span id="riepRotazione">
+20 sec
+</span>
+
+</div>
+
+</section>
+
+
+<section class="sezione">
+
+<h2>
+Com'è venuta?
+</h2>
+
+<div class="campo">
+
+<label>
+Valutazione
+</label>
+
+<div class="sceltatoggle">
+
+<button
+class="toggle"
+onclick="valutaPizza(1,this)">
+⭐
+</button>
+
+<button
+class="toggle"
+onclick="valutaPizza(2,this)">
+⭐⭐
+</button>
+
+<button
+class="toggle"
+onclick="valutaPizza(3,this)">
+⭐⭐⭐
+</button>
+
+<button
+class="toggle"
+onclick="valutaPizza(4,this)">
+⭐⭐⭐⭐
+</button>
+
+<button
+class="toggle"
+onclick="valutaPizza(5,this)">
+⭐⭐⭐⭐⭐
+</button>
+
+</div>
+
+</div>
+
+
+<div class="campo">
+
+<label>
+Note sulla cottura
+</label>
+
+<textarea
+id="noteCottura"
+class="input"
+placeholder="Cornicione, fondo, colore, cottura..."></textarea>
+
+</div>
+
+</section>
+
+
+<div class="nota">
+
+💾 Salvando la ricetta, tutti i dati
+dell'impasto, della fermentazione
+e della cottura verranno memorizzati
+nel Diario.
+
+</div>
+
+
+<button
+class="pulsante"
+onclick="salvaRicetta()">
+
+SALVA RICETTA 📖
+
+</button>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- DIARIO -->
+<!-- ================================================= -->
+
+<div id="diario"
+class="schermata nascosta">
+
+
+<div class="titolo-schermata">
+
+<button
+class="indietro"
+onclick="tornaHome()">
+
+←
+
+</button>
+
+<h1>
+Il mio Diario
+</h1>
+
+</div>
+
+
+<p class="descrizione">
+
+Le tue pizze, le tue prove,
+i tuoi risultati.
+
+</p>
+
+
+<div id="listaDiario"></div>
+
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- NAVIGAZIONE -->
+<!-- ================================================= -->
+
+<div class="bottom-nav">
+
+<button
+class="nav-item active"
+onclick="mostra('home')">
+
+<span>🏠</span>
+Home
+
+</button>
+
+
+<button
+class="nav-item"
+onclick="apriNuovaPizza()">
+
+<span>🍕</span>
+Pizza
+
+</button>
+
+
+<button
+class="nav-item"
+onclick="apriDiario()">
+
+<span>📖</span>
+Diario
+
+</button>
+
+</div>
+
+
+
+<script>
+
+
+/* ================================================= */
+/* NAVIGAZIONE */
+/* ================================================= */
+
+function nascondiTutto() {
+
+document
+.querySelectorAll(".schermata")
+.forEach(function(s) {
+
+s.classList.add("nascosta");
+
+});
+
+}
+
+
+function mostra(id) {
+
+nascondiTutto();
+
+document
+.getElementById(id)
+.classList.remove("nascosta");
+
+window.scrollTo(0,0);
+
+}
+
+
+function apriNuovaPizza() {
+
+mostra("nuovaPizza");
+
+}
+
+
+function tornaHome() {
+
+mostra("home");
+
+}
+
+
+function apriFermentazione() {
+
+mostra("fermentazione");
+
+impostaOraAttuale();
+
+generaTimeline();
+
+}
+
+
+function tornaNuovaPizza() {
+
+mostra("nuovaPizza");
+
+}
+
+
+function apriCottura() {
+
+mostra("cottura");
+
+aggiornaCottura();
+
+}
+
+
+function tornaFermentazione() {
+
+mostra("fermentazione");
+
+}
+
+
+function apriDiario() {
+
+mostra("diario");
+
+mostraDiario();
+
+}
+
+
+/* ================================================= */
+/* FERMENTAZIONE */
+/* ================================================= */
+
+let usaFrigo = true;
+
+
+function impostaFrigo(valore) {
+
+usaFrigo = valore;
+
+document
+.getElementById("frigoSi")
+.classList.toggle(
+"attivo",
+valore
+);
+
+document
+.getElementById("frigoNo")
+.classList.toggle(
+"attivo",
+!valore
+);
+
+document
+.getElementById("riepFrigo")
+.innerText =
+valore ? "Sì" : "No";
+
+generaTimeline();
+
+}
+
+
+function impostaOraAttuale() {
+
+const campo =
+document.getElementById("oraInizio");
+
+if (campo.value !== "") {
+return;
+}
+
+const adesso = new Date();
+
+const ore =
+String(adesso.getHours())
+.padStart(2,"0");
+
+const minuti =
+String(adesso.getMinutes())
+.padStart(2,"0");
+
+campo.value =
+ore + ":" + minuti;
+
+}
+
+
+function aggiungiOre(data, ore) {
+
+return new Date(
+data.getTime() +
+ore * 60 * 60 * 1000
+);
+
+}
+
+
+function formattaOra(data) {
+
+return String(data.getHours())
+.padStart(2,"0")
++ ":" +
+String(data.getMinutes())
+.padStart(2,"0");
+
+}
+
+
+function generaTimeline() {
+
+const campoOra =
+document.getElementById("oraInizio");
+
+if (!campoOra.value) {
+return;
+}
+
+const temperatura =
+parseFloat(
+document.getElementById("temperatura").value
+) || 22;
+
+const durata =
+parseFloat(
+document.getElementById("oreFermentazione").value
+) || 24;
+
+const [ore,minuti] =
+campoOra.value
+.split(":")
+.map(Number);
+
+const inizio = new Date();
+
+inizio.setHours(
+ore,
+minuti,
+0,
+0
+);
+
+const fine =
+aggiungiOre(inizio,durata);
+
+let eventi = [];
+
+
+eventi.push({
+
+ora: inizio,
+
+titolo: "Impasto",
+
+dettaglio:
+"Inizio preparazione dell'impasto."
+
+});
+
+
+if (usaFrigo) {
+
+const frigo =
+aggiungiOre(
+inizio,
+Math.min(
+3,
+durata / 3
+)
+);
+
+eventi.push({
+
+ora: frigo,
+
+titolo: "Frigorifero",
+
+dettaglio:
+"Riposo in frigorifero."
+
+});
+
+
+const uscita =
+aggiungiOre(
+inizio,
+Math.max(
+durata - 5,
+durata / 2
+)
+);
+
+eventi.push({
+
+ora: uscita,
+
+titolo: "Fuori dal frigo",
+
+dettaglio:
+"Riporta l'impasto a temperatura ambiente."
+
+});
+
+
+const staglio =
+aggiungiOre(
+uscita,
+Math.max(
+1,
+(
+durata -
+(uscita - inizio) /
+3600000
+) / 2
+)
+);
+
+eventi.push({
+
+ora: staglio,
+
+titolo: "Staglio",
+
+dettaglio:
+"Forma i panetti."
+
+});
+
+}
+else {
+
+const staglio =
+aggiungiOre(
+inizio,
+durata * 0.55
+);
+
+eventi.push({
+
+ora: staglio,
+
+titolo: "Staglio",
+
+dettaglio:
+"Forma i panetti."
+
+});
+
+}
+
+
+eventi.push({
+
+ora: fine,
+
+titolo: "Pizza pronta",
+
+dettaglio:
+"Il tempo impostato è completato."
+
+});
+
+
+let html = "";
+
+
+eventi.forEach(function(evento) {
+
+html += `
+
+<div style="
+display:flex;
+gap:14px;
+min-height:65px;
+">
+
+<div style="
+width:10px;
+height:10px;
+background:#b9362f;
+border-radius:50%;
+margin-top:5px;
+flex-shrink:0;
+"></div>
+
+<div>
+
+<div style="
+color:#b9362f;
+font-size:14px;
+font-weight:700;
+">
+
+${formattaOra(evento.ora)}
+
+</div>
+
+<div style="
+font-size:15px;
+font-weight:600;
+margin-top:2px;
+">
+
+${evento.titolo}
+
+</div>
+
+<div style="
+color:#817a73;
+font-size:12px;
+margin-top:3px;
+">
+
+${evento.dettaglio}
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+document
+.getElementById("timeline")
+.innerHTML = html;
+
+
+document
+.getElementById("riepTemperatura")
+.innerText =
+temperatura + " °C";
+
+
+document
+.getElementById("riepDurata")
+.innerText =
+durata + " ore";
+
+}
+
+
+/* ================================================= */
+/* COTTURA */
+/* ================================================= */
+
+let fiamma = "Alta";
+
+let valutazione = 0;
+
+
+function scegliFiamma(valore) {
+
+fiamma = valore;
+
+document
+.getElementById("fiammaAlta")
+.classList.toggle(
+"attivo",
+valore === "Alta"
+);
+
+document
+.getElementById("fiammaMedia")
+.classList.toggle(
+"attivo",
+valore === "Media"
+);
+
+document
+.getElementById("fiammaBassa")
+.classList.toggle(
+"attivo",
+valore === "Bassa"
+);
+
+aggiornaCottura();
+
+}
+
+
+function aggiornaCottura() {
+
+const forno =
+document.getElementById("tempForno").value;
+
+const piano =
+document.getElementById("tempPiano").value;
+
+const tempo =
+document.getElementById("tempoCottura").value;
+
+const rotazione =
+document.getElementById("rotazione").value;
+
+
+document
+.getElementById("riepTempForno")
+.innerText =
+forno + " °C";
+
+
+document
+.getElementById("riepTempPiano")
+.innerText =
+piano + " °C";
+
+
+document
+.getElementById("riepFiamma")
+.innerText =
+fiamma;
+
+
+document
+.getElementById("riepTempoCottura")
+.innerText =
+tempo + " sec";
+
+
+document
+.getElementById("riepRotazione")
+.innerText =
+rotazione + " sec";
+
+}
+
+
+/* ================================================= */
+/* VALUTAZIONE */
+/* ================================================= */
+
+function valutaPizza(numero,elemento) {
+
+valutazione = numero;
+
+const pulsanti =
+elemento.parentElement
+.querySelectorAll(".toggle");
+
+pulsanti.forEach(
+function(pulsante,indice) {
+
+pulsante.classList.toggle(
+"attivo",
+indice === numero - 1
+);
+
+});
+
+}
+
+
+/* ================================================= */
+/* SALVATAGGIO RICETTA */
+/* ================================================= */
+
+function salvaRicetta() {
+
+const ricette =
+JSON.parse(
+localStorage.getItem(
+"lePizzeDiBu"
+) || "[]"
+);
+
+
+const nuovaRicetta = {
+
+id: Date.now(),
+
+nome:
+document.getElementById(
+"nomePizza"
+).value ||
+"Pizza senza nome",
+
+data:
+new Date().toLocaleDateString(
+"it-IT"
+),
+
+tipo:
+"Napoletana",
+
+numeroPizze:
+document.getElementById(
+"numeroPizze"
+).value,
+
+pesoPanetto:
+document.getElementById(
+"pesoPanetto"
+).value,
+
+idratazione:
+document.getElementById(
+"idratazione"
+).value,
+
+sale:
+document.getElementById(
+"sale"
+).value,
+
+lievito:
+document.getElementById(
+"lievito"
+).value,
+
+temperaturaAmbiente:
+document.getElementById(
+"temperatura"
+).value,
+
+durataFermentazione:
+document.getElementById(
+"oreFermentazione"
+).value,
+
+frigo:
+usaFrigo,
+
+oraInizio:
+document.getElementById(
+"oraInizio"
+).value,
+
+forno:
+"Ooni Koda 16",
+
+temperaturaForno:
+document.getElementById(
+"tempForno"
+).value,
+
+temperaturaPiano:
+document.getElementById(
+"tempPiano"
+).value,
+
+fiamma:
+fiamma,
+
+tempoCottura:
+document.getElementById(
+"tempoCottura"
+).value,
+
+rotazione:
+document.getElementById(
+"rotazione"
+).value,
+
+voto:
+valutazione,
+
+note:
+document.getElementById(
+"noteCottura"
+).value
+
+};
+
+
+ricette.unshift(
+nuovaRicetta
+);
+
+
+localStorage.setItem(
+"lePizzeDiBu",
+JSON.stringify(ricette)
+);
+
+
+aggiornaNumeroRicette();
+
+
+alert(
+"🍕 Ricetta salvata!\n\n" +
+nuovaRicetta.nome +
+"\n\n" +
+"È stata aggiunta al tuo Diario."
+);
+
+
+apriDiario();
+
+}
+
+
+/* ================================================= */
+/* DIARIO */
+/* ================================================= */
+
+function mostraDiario() {function mostraDiario() {
+
+    const contenitore =
+    document.getElementById("listaDiario");
+
+    const ricette =
+    JSON.parse(
+        localStorage.getItem("lePizzeDiBu") || "[]"
+    );
+
+    if (ricette.length === 0) {
+
+        contenitore.innerHTML = `
+
+        <div class="diario-vuoto">
+
+            <div class="emoji">🍕</div>
+
+            <h2>
+                Il diario è ancora vuoto
+            </h2>
+
+            <p>
+                La tua prossima pizza
+                sarà la prima.
+            </p>
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+    let html = "";
+
+    ricette.forEach(function(ricetta) {
+
+        let stelle = "";
+
+        for (let i = 0; i < 5; i++) {
+
+            stelle +=
+            i < ricetta.voto
+            ? "⭐"
+            : "☆";
+
+        }
+
+        html += `
+
+        <div
+        class="ricetta"
+        onclick="apriDettaglio(${ricetta.id})"
+        style="cursor:pointer;">
+
+            <div class="ricetta-header">
+
+                <div>
+
+                    <h2>
+                        ${ricetta.nome}
+                    </h2>
+
+                    <div class="data">
+                        ${ricetta.data}
+                    </div>
+
+                </div>
+
+                <div class="voto">
+                    ${stelle}
+                </div>
+
+            </div>
+
+
+            <div class="info-ricetta">
+
+                <div class="info">
+                    <small>Panetti</small>
+                    <strong>
+                        ${ricetta.numeroPizze}
+                        ×
+                        ${ricetta.pesoPanetto} g
+                    </strong>
+                </div>
+
+
+                <div class="info">
+                    <small>Idratazione</small>
+                    <strong>
+                        ${ricetta.idratazione}%
+                    </strong>
+                </div>
+
+
+                <div class="info">
+                    <small>Fermentazione</small>
+                    <strong>
+                        ${ricetta.durataFermentazione} h
+                    </strong>
+                </div>
+
+
+                <div class="info">
+                    <small>Cottura</small>
+                    <strong>
+                        ${ricetta.tempoCottura} sec
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div
+            style="
+            color:#b9362f;
+            font-size:13px;
+            font-weight:600;
+            margin-top:8px;
+            ">
+
+                Apri ricetta →
+                
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+    contenitore.innerHTML = html;
+
+}
+
+let html = "";
+
+
+ricette.forEach(
+function(ricetta) {
+
+
+let stelle = "";
+
+for (
+let i = 0;
+i < 5;
+i++
+) {
+
+stelle +=
+i < ricetta.voto
+? "⭐"
+: "☆";
+
+}
+
+
+html += `
+
+<div class="ricetta">
+
+<div class="ricetta-header">
+
+<div>
+
+<h2>
+${ricetta.nome}
+</h2>
+
+<div class="data">
+${ricetta.data}
+</div>
+
+</div>
+
+<div class="voto">
+${stelle}
+</div>
+
+</div>
+
+
+<div class="info-ricetta">
+
+
+<div class="info">
+
+<small>
+Panetti
+</small>
+
+<strong>
+${ricetta.numeroPizze}
+× ${ricetta.pesoPanetto} g
+</strong>
+
+</div>
+
+
+<div class="info">
+
+<small>
+Idratazione
+</small>
+
+<strong>
+${ricetta.idratazione}%
+</strong>
+
+</div>
+
+
+<div class="info">
+
+<small>
+Fermentazione
+</small>
+
+<strong>
+${ricetta.durataFermentazione} h
+</strong>
+
+</div>
+
+
+<div class="info">
+
+<small>
+Frigo
+</small>
+
+<strong>
+${ricetta.frigo ? "Sì" : "No"}
+</strong>
+
+</div>
+
+
+<div class="info">
+
+<small>
+Forno
+</small>
+
+<strong>
+${ricetta.forno}
+</strong>
+
+</div>
+
+
+<div class="info">
+
+<small>
+Cottura
+</small>
+
+<strong>
+${ricetta.tempoCottura} sec
+</strong>
+
+</div>
+
+</div>
+
+
+<div class="note-diario">
+
+${ricetta.note
+? ricetta.note
+: "Nessuna nota aggiunta."}
+
+</div>
+
+
+<button
+class="bottone-elimina"
+onclick="eliminaRicetta(${ricetta.id})">
+
+🗑️ Elimina ricetta
+
+</button>
+
+</div>
+
+`;
+
+});
+
+
+contenitore.innerHTML =
+html;
+
+}
+
+
+function eliminaRicetta(id) {
+
+if (
+!confirm(
+"Vuoi eliminare questa ricetta?"
+)
+) {
+
+return;
+
+}
+
+
+let ricette =
+JSON.parse(
+localStorage.getItem(
+"lePizzeDiBu"
+) || "[]"
+);
+
+
+ricette =
+ricette.filter(
+function(ricetta) {
+
+return ricetta.id !== id;
+
+});
+
+
+localStorage.setItem(
+"lePizzeDiBu",
+JSON.stringify(ricette)
+);
+
+
+mostraDiario();
+
+aggiornaNumeroRicette();
+
+}
+
+
+function aggiornaNumeroRicette() {
+
+const ricette =
+JSON.parse(
+localStorage.getItem(
+"lePizzeDiBu"
+) || "[]"
+);
+
+
+const elemento =
+document.getElementById(
+"numeroRicette"
+);
+
+
+if (!elemento) {
+return;
+}
+
+
+elemento.innerText =
+
+ricette.length === 1
+
+? "1 ricetta salvata"
+
+:
+
+ricette.length +
+" ricette salvate";
+
+}
+
+
+aggiornaNumeroRicette();
+
+</script>
+
+</body>
+
+</html>
