@@ -811,16 +811,20 @@ Che pizza vuoi preparare?
 <div class="sceltatoggle">
 
 <button
+id="tipoNapoletana"
 class="toggle attivo"
-type="button">
+type="button"
+onclick="selezionaTipoPizza('Napoletana')">
 
 🍕 Napoletana
 
 </button>
 
 <button
+id="tipoPersonalizzata"
 class="toggle"
-type="button">
+type="button"
+onclick="selezionaTipoPizza('Personalizzata')">
 
 Personalizzata
 
@@ -1786,6 +1790,8 @@ function apriNuovaPizza() {
 
 mostra("nuovaPizza");
 
+calcolaImpasto();
+
 }
 
 
@@ -1800,6 +1806,31 @@ mostra("home");
 // =================================================
 
 let tipoImpasto = "diretto";
+
+    let tipoPizza = "Napoletana";
+
+
+function selezionaTipoPizza(tipo) {
+
+    tipoPizza = tipo;
+
+
+    document
+    .getElementById("tipoNapoletana")
+    .classList.toggle(
+        "attivo",
+        tipo === "Napoletana"
+    );
+
+
+    document
+    .getElementById("tipoPersonalizzata")
+    .classList.toggle(
+        "attivo",
+        tipo === "Personalizzata"
+    );
+
+}
 
 
 function selezionaImpasto(tipo) {
@@ -2507,7 +2538,7 @@ new Date().toLocaleDateString(
 ),
 
 tipo:
-"Napoletana",
+tipoPizza,
 
 numeroPizze:
 document.getElementById(
@@ -2620,15 +2651,17 @@ apriDiario();
 /* DIARIO */
 /* ================================================= */
 
-function mostraDiario() {function mostraDiario() {
+function mostraDiario() {
 
     const contenitore =
     document.getElementById("listaDiario");
+
 
     const ricette =
     JSON.parse(
         localStorage.getItem("lePizzeDiBu") || "[]"
     );
+
 
     if (ricette.length === 0) {
 
@@ -2636,7 +2669,9 @@ function mostraDiario() {function mostraDiario() {
 
         <div class="diario-vuoto">
 
-            <div class="emoji">🍕</div>
+            <div class="emoji">
+                🍕
+            </div>
 
             <h2>
                 Il diario è ancora vuoto
@@ -2654,27 +2689,28 @@ function mostraDiario() {function mostraDiario() {
         return;
     }
 
+
     let html = "";
+
 
     ricette.forEach(function(ricetta) {
 
         let stelle = "";
 
+
         for (let i = 0; i < 5; i++) {
 
             stelle +=
-            i < ricetta.voto
+            i < (ricetta.voto || 0)
             ? "⭐"
             : "☆";
 
         }
 
+
         html += `
 
-        <div
-        class="ricetta"
-        onclick="apriDettaglio(${ricetta.id})"
-        style="cursor:pointer;">
+        <div class="ricetta">
 
             <div class="ricetta-header">
 
@@ -2700,52 +2736,105 @@ function mostraDiario() {function mostraDiario() {
             <div class="info-ricetta">
 
                 <div class="info">
-                    <small>Panetti</small>
+
+                    <small>
+                        Panetti
+                    </small>
+
                     <strong>
                         ${ricetta.numeroPizze}
                         ×
                         ${ricetta.pesoPanetto} g
                     </strong>
+
                 </div>
 
 
                 <div class="info">
-                    <small>Idratazione</small>
+
+                    <small>
+                        Idratazione
+                    </small>
+
                     <strong>
                         ${ricetta.idratazione}%
                     </strong>
+
                 </div>
 
 
                 <div class="info">
-                    <small>Fermentazione</small>
+
+                    <small>
+                        Fermentazione
+                    </small>
+
                     <strong>
                         ${ricetta.durataFermentazione} h
                     </strong>
+
                 </div>
 
 
                 <div class="info">
-                    <small>Cottura</small>
+
+                    <small>
+                        Frigo
+                    </small>
+
+                    <strong>
+                        ${ricetta.frigo ? "Sì" : "No"}
+                    </strong>
+
+                </div>
+
+
+                <div class="info">
+
+                    <small>
+                        Forno
+                    </small>
+
+                    <strong>
+                        ${ricetta.forno}
+                    </strong>
+
+                </div>
+
+
+                <div class="info">
+
+                    <small>
+                        Cottura
+                    </small>
+
                     <strong>
                         ${ricetta.tempoCottura} sec
                     </strong>
+
                 </div>
 
             </div>
 
 
-            <div
-            style="
-            color:#b9362f;
-            font-size:13px;
-            font-weight:600;
-            margin-top:8px;
-            ">
+            <div class="note-diario">
 
-                Apri ricetta →
-                
+                ${
+                    ricetta.note
+                    ? ricetta.note
+                    : "Nessuna nota aggiunta."
+                }
+
             </div>
+
+
+            <button
+            class="bottone-elimina"
+            onclick="eliminaRicetta(${ricetta.id})">
+
+                🗑️ Elimina ricetta
+
+            </button>
 
         </div>
 
@@ -2753,173 +2842,10 @@ function mostraDiario() {function mostraDiario() {
 
     });
 
+
     contenitore.innerHTML = html;
 
-}
-
-let html = "";
-
-
-ricette.forEach(
-function(ricetta) {
-
-
-let stelle = "";
-
-for (
-let i = 0;
-i < 5;
-i++
-) {
-
-stelle +=
-i < ricetta.voto
-? "⭐"
-: "☆";
-
-}
-
-
-html += `
-
-<div class="ricetta">
-
-<div class="ricetta-header">
-
-<div>
-
-<h2>
-${ricetta.nome}
-</h2>
-
-<div class="data">
-${ricetta.data}
-</div>
-
-</div>
-
-<div class="voto">
-${stelle}
-</div>
-
-</div>
-
-
-<div class="info-ricetta">
-
-
-<div class="info">
-
-<small>
-Panetti
-</small>
-
-<strong>
-${ricetta.numeroPizze}
-× ${ricetta.pesoPanetto} g
-</strong>
-
-</div>
-
-
-<div class="info">
-
-<small>
-Idratazione
-</small>
-
-<strong>
-${ricetta.idratazione}%
-</strong>
-
-</div>
-
-
-<div class="info">
-
-<small>
-Fermentazione
-</small>
-
-<strong>
-${ricetta.durataFermentazione} h
-</strong>
-
-</div>
-
-
-<div class="info">
-
-<small>
-Frigo
-</small>
-
-<strong>
-${ricetta.frigo ? "Sì" : "No"}
-</strong>
-
-</div>
-
-
-<div class="info">
-
-<small>
-Forno
-</small>
-
-<strong>
-${ricetta.forno}
-</strong>
-
-</div>
-
-
-<div class="info">
-
-<small>
-Cottura
-</small>
-
-<strong>
-${ricetta.tempoCottura} sec
-</strong>
-
-</div>
-
-</div>
-
-
-<div class="note-diario">
-
-${ricetta.note
-? ricetta.note
-: "Nessuna nota aggiunta."}
-
-</div>
-
-
-<button
-class="bottone-elimina"
-onclick="eliminaRicetta(${ricetta.id})">
-
-🗑️ Elimina ricetta
-
-</button>
-
-</div>
-
-`;
-
-});
-
-
-contenitore.innerHTML =
-html;
-
-}
-
-
-function eliminaRicetta(id) {
+}function eliminaRicetta(id) {
 
 if (
 !confirm(
