@@ -1913,130 +1913,74 @@ function selezionaImpasto(tipo) {
 function calcolaImpasto() {
 
     const numero =
-    parseFloat(
-        document.getElementById(
-            "numeroPizze"
-        ).value
-    );
-
+        parseFloat(document.getElementById("numeroPizze").value);
 
     const peso =
-    parseFloat(
-        document.getElementById(
-            "pesoPanetto"
-        ).value
-    );
-
+        parseFloat(document.getElementById("pesoPanetto").value);
 
     const idratazione =
-    parseFloat(
-        document.getElementById(
-            "idratazione"
-        ).value
-    );
-
+        parseFloat(document.getElementById("idratazione").value);
 
     const percentualeSale =
-    parseFloat(
-        document.getElementById(
-            "sale"
-        ).value
-    );
-
+        parseFloat(document.getElementById("sale").value);
 
     const percentualeLievito =
-    parseFloat(
-        document.getElementById(
-            "lievito"
-        ).value
-    );
-
+        parseFloat(document.getElementById("lievito").value);
 
     if (
         !numero ||
         !peso ||
-        !idratazione
+        !idratazione ||
+        percentualeSale < 0 ||
+        percentualeLievito < 0
     ) {
-
         return;
-
     }
 
+    // Peso totale desiderato dell'impasto
+    const impastoTotale = numero * peso;
 
-    const impastoTotale =
-    numero * peso;
-
-
-    /*
-    Formula:
-
-    Impasto totale =
-    farina +
-    acqua +
-    sale +
-    lievito
-    */
-
-
+    // Calcolo della farina in modo che
+    // farina + acqua + sale + lievito = impastoTotale
     const farina =
-    impastoTotale /
-    (
-        1 +
-        idratazione / 100 +
-        percentualeSale / 100 +
-        percentualeLievito / 100
-    );
+        impastoTotale /
+        (
+            1 +
+            idratazione / 100 +
+            percentualeSale / 100 +
+            percentualeLievito / 100
+        );
 
-
+    // Calcolo degli altri ingredienti
     const acqua =
-    farina *
-    idratazione /
-    100;
-
+        farina * idratazione / 100;
 
     const sale =
-    farina *
-    percentualeSale /
-    100;
-
+        farina * percentualeSale / 100;
 
     const lievito =
-    farina *
-    percentualeLievito /
-    100;
+        farina * percentualeLievito / 100;
 
+    // Calcolo del totale reale
+    const totaleCalcolato =
+        farina + acqua + sale + lievito;
 
-    document.getElementById(
-        "farinaRisultato"
-    ).innerText =
-    Math.round(farina) + " g";
+    // Visualizzazione
+    document.getElementById("farinaRisultato").innerText =
+        farina.toFixed(1) + " g";
 
+    document.getElementById("acquaRisultato").innerText =
+        acqua.toFixed(1) + " g";
 
-    document.getElementById(
-        "acquaRisultato"
-    ).innerText =
-    Math.round(acqua) + " g";
+    document.getElementById("saleRisultato").innerText =
+        sale.toFixed(1) + " g";
 
+    document.getElementById("lievitoRisultato").innerText =
+        lievito.toFixed(2) + " g";
 
-    document.getElementById(
-        "saleRisultato"
-    ).innerText =
-    sale.toFixed(1) + " g";
-
-
-    document.getElementById(
-        "lievitoRisultato"
-    ).innerText =
-    lievito.toFixed(2) + " g";
-
-
-    document.getElementById(
-        "totaleRisultato"
-    ).innerText =
-    Math.round(impastoTotale) + " g";
-
+    document.getElementById("totaleRisultato").innerText =
+        Math.round(totaleCalcolato) + " g";
 }
-
 function apriFermentazione() {
 
 mostra("fermentazione");
