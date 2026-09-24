@@ -772,12 +772,12 @@ voti e note delle tue pizze.
 
 
 <!-- ================================================= -->
+<!-- ================================================= -->
 <!-- NUOVA PIZZA -->
 <!-- ================================================= -->
 
 <div id="nuovaPizza"
 class="schermata nascosta">
-
 
 <div class="titolo-schermata">
 
@@ -810,15 +810,89 @@ Che pizza vuoi preparare?
 
 <div class="sceltatoggle">
 
-<button class="toggle attivo">
+<button
+class="toggle attivo"
+type="button">
+
 🍕 Napoletana
+
 </button>
 
-<button class="toggle">
+<button
+class="toggle"
+type="button">
+
 Personalizzata
+
 </button>
 
 </div>
+
+</section>
+
+
+<section class="sezione">
+
+<h2>
+Tipo di impasto
+</h2>
+
+<div class="sceltatoggle">
+
+<button
+id="diretto"
+class="toggle attivo"
+type="button"
+onclick="selezionaImpasto('diretto')">
+
+Diretto
+
+</button>
+
+<button
+id="biga"
+class="toggle"
+type="button"
+onclick="selezionaImpasto('biga')">
+
+Biga
+
+</button>
+
+<button
+id="poolish"
+class="toggle"
+type="button"
+onclick="selezionaImpasto('poolish')">
+
+Poolish
+
+</button>
+
+<button
+id="riporto"
+class="toggle"
+type="button"
+onclick="selezionaImpasto('riporto')">
+
+Pasta di riporto
+
+</button>
+
+</div>
+
+<p
+id="descrizioneTipoImpasto"
+style="
+margin-top:12px;
+font-size:13px;
+color:#817a73;
+">
+
+Impasto diretto: tutti gli ingredienti
+vengono inseriti nello stesso impasto.
+
+</p>
 
 </section>
 
@@ -840,7 +914,8 @@ id="numeroPizze"
 class="input"
 type="number"
 min="1"
-value="4">
+value="4"
+oninput="calcolaImpasto()">
 
 </div>
 
@@ -856,7 +931,8 @@ id="pesoPanetto"
 class="input"
 type="number"
 min="50"
-value="280">
+value="280"
+oninput="calcolaImpasto()">
 
 </div>
 
@@ -869,6 +945,7 @@ value="280">
 Il tuo impasto
 </h2>
 
+
 <div class="campo">
 
 <label>
@@ -879,7 +956,9 @@ Idratazione (%)
 id="idratazione"
 class="input"
 type="number"
-value="70">
+step="0.1"
+value="70"
+oninput="calcolaImpasto()">
 
 </div>
 
@@ -894,7 +973,9 @@ Sale (%)
 id="sale"
 class="input"
 type="number"
-value="2.8">
+step="0.1"
+value="2.8"
+oninput="calcolaImpasto()">
 
 </div>
 
@@ -909,7 +990,108 @@ Lievito (%)
 id="lievito"
 class="input"
 type="number"
-value="0.10">
+step="0.01"
+value="0.10"
+oninput="calcolaImpasto()">
+
+</div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- RISULTATO IMPASTO -->
+<!-- ================================================= -->
+
+<section class="sezione">
+
+<h2>
+🧮 Ingredienti
+</h2>
+
+<div
+id="risultatoImpasto"
+style="
+background:#fff;
+border-radius:16px;
+padding:18px;
+box-shadow:0 3px 12px rgba(0,0,0,0.05);
+">
+
+
+<div class="riga">
+
+<span>
+Farina
+</span>
+
+<strong id="farinaRisultato">
+-
+</strong>
+
+</div>
+
+
+<div class="riga">
+
+<span>
+Acqua
+</span>
+
+<strong id="acquaRisultato">
+-
+</strong>
+
+</div>
+
+
+<div class="riga">
+
+<span>
+Sale
+</span>
+
+<strong id="saleRisultato">
+-
+</strong>
+
+</div>
+
+
+<div class="riga">
+
+<span>
+Lievito
+</span>
+
+<strong id="lievitoRisultato">
+-
+</strong>
+
+</div>
+
+
+<div
+style="
+border-top:1px solid #eee;
+margin-top:12px;
+padding-top:12px;
+">
+
+<div class="riga">
+
+<span>
+Impasto totale
+</span>
+
+<strong id="totaleRisultato">
+-
+</strong>
+
+</div>
+
+</div>
+
 
 </div>
 
@@ -918,10 +1100,16 @@ value="0.10">
 
 <button
 class="pulsante"
+type="button"
 onclick="apriFermentazione()">
 
 CONTINUA →
 FERMENTAZIONE
+
+</button>
+
+
+</div>
 
 </button>
 
@@ -1607,6 +1795,216 @@ mostra("home");
 
 }
 
+    // =================================================
+// CALCOLO IMPASTO
+// =================================================
+
+let tipoImpasto = "diretto";
+
+
+function selezionaImpasto(tipo) {
+
+    tipoImpasto = tipo;
+
+
+    const pulsanti = [
+        "diretto",
+        "biga",
+        "poolish",
+        "riporto"
+    ];
+
+
+    pulsanti.forEach(function(id) {
+
+        const elemento =
+        document.getElementById(id);
+
+        if (elemento) {
+
+            elemento.classList.remove("attivo");
+
+        }
+
+    });
+
+
+    const selezionato =
+    document.getElementById(tipo);
+
+    if (selezionato) {
+
+        selezionato.classList.add("attivo");
+
+    }
+
+
+    const descrizione =
+    document.getElementById(
+        "descrizioneTipoImpasto"
+    );
+
+
+    if (tipo === "diretto") {
+
+        descrizione.innerText =
+        "Impasto diretto: tutti gli ingredienti vengono inseriti nello stesso impasto.";
+
+    }
+
+    if (tipo === "biga") {
+
+        descrizione.innerText =
+        "Biga: una parte della farina e dell'acqua viene fermentata prima dell'impasto finale.";
+
+    }
+
+    if (tipo === "poolish") {
+
+        descrizione.innerText =
+        "Poolish: prefermento molto idratato utilizzato per sviluppare profumi e struttura.";
+
+    }
+
+    if (tipo === "riporto") {
+
+        descrizione.innerText =
+        "Pasta di riporto: una parte di un impasto precedente viene utilizzata nel nuovo impasto.";
+
+    }
+
+
+    calcolaImpasto();
+
+}
+
+
+function calcolaImpasto() {
+
+    const numero =
+    parseFloat(
+        document.getElementById(
+            "numeroPizze"
+        ).value
+    );
+
+
+    const peso =
+    parseFloat(
+        document.getElementById(
+            "pesoPanetto"
+        ).value
+    );
+
+
+    const idratazione =
+    parseFloat(
+        document.getElementById(
+            "idratazione"
+        ).value
+    );
+
+
+    const percentualeSale =
+    parseFloat(
+        document.getElementById(
+            "sale"
+        ).value
+    );
+
+
+    const percentualeLievito =
+    parseFloat(
+        document.getElementById(
+            "lievito"
+        ).value
+    );
+
+
+    if (
+        !numero ||
+        !peso ||
+        !idratazione
+    ) {
+
+        return;
+
+    }
+
+
+    const impastoTotale =
+    numero * peso;
+
+
+    /*
+    Formula:
+
+    Impasto totale =
+    farina +
+    acqua +
+    sale +
+    lievito
+    */
+
+
+    const farina =
+    impastoTotale /
+    (
+        1 +
+        idratazione / 100 +
+        percentualeSale / 100 +
+        percentualeLievito / 100
+    );
+
+
+    const acqua =
+    farina *
+    idratazione /
+    100;
+
+
+    const sale =
+    farina *
+    percentualeSale /
+    100;
+
+
+    const lievito =
+    farina *
+    percentualeLievito /
+    100;
+
+
+    document.getElementById(
+        "farinaRisultato"
+    ).innerText =
+    Math.round(farina) + " g";
+
+
+    document.getElementById(
+        "acquaRisultato"
+    ).innerText =
+    Math.round(acqua) + " g";
+
+
+    document.getElementById(
+        "saleRisultato"
+    ).innerText =
+    sale.toFixed(1) + " g";
+
+
+    document.getElementById(
+        "lievitoRisultato"
+    ).innerText =
+    lievito.toFixed(2) + " g";
+
+
+    document.getElementById(
+        "totaleRisultato"
+    ).innerText =
+    Math.round(impastoTotale) + " g";
+
+}
 
 function apriFermentazione() {
 
